@@ -30,7 +30,7 @@ body {
     margin-top: 20px;
 }
 
-.add-btn {
+#add-btn {
     background-color: royalblue;
     border: none;
     padding: 10px 40px;
@@ -40,5 +40,8 @@ body {
 
 .table {
     background-color: gold;
+    margin: 0 100px;
+    padding: 30px;
+    margin-top: 50px;
     border-radius: 10px;
 }
