@@ -5,9 +5,10 @@ This is a simple phonebook application that allows users to add, edit, and delet
 ## Features
 
 1. **Add and Edit Contacts**
+
    - A section with two text inputs (Name and Phone) and a button for adding or editing contacts.
      - New contacts can be added by clicking the "Add Contact" button or by pressing the Enter key when the focus is on the "Phone Number" input.
-     - If an existing contact is being edited, the "Add Contact" button will update the existing contact information in the phonebook.
+     - If an existing contact is being edited, the "Add Contact" button will change into "Edit Contact" and will update the existing contact information in the phonebook.
 
 2. **Contact List Table**
    - A section that contains a table with four columns: Name, Phone, Edit, and Delete.
@@ -18,5 +19,5 @@ This is a simple phonebook application that allows users to add, edit, and delet
 ## Project Structure
 
 - `index.html`: The main HTML file that structures the phonebook.
-- `styles.css`: The CSS file that handles the styling of the application.
+- `style.css`: The CSS file that handles the styling of the application.
 - `app.js`: The JavaScript file that implements the phonebook's functionality.
