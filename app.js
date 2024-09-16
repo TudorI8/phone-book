@@ -3,12 +3,25 @@ const phoneInputElement = document.querySelector('#phone');
 const addContactButton = document.querySelector('#add-btn');
 const table = document.querySelector('#phone-book-table');
 const phoneNumberDetails = [];
+const errorOutputParagraph = document.querySelector('#error-output');
 
 addContactButton.addEventListener('click', addNewContact);
+phoneInputElement.addEventListener('keydown', function(e) {
+	if (e.key === 'Enter') {
+		addNewContact();
+	}
+});
 
 function addNewContact() {
 	const name = nameInputElement.value;
 	const phoneNumber = phoneInputElement.value;
+
+    if (name.length < 3 || phoneNumber.length < 3) {
+		errorOutputParagraph.innerHTML =
+			'The name and phone number must contain at least 3 characters';
+		errorOutputParagraph.style.color = 'red';
+		return;
+	}
 
 	if (phoneNumberDetails.length === 0) {
 		const thead = createTableHeader();
@@ -35,8 +48,11 @@ function addNewContact() {
 	tableRow.appendChild(phoneNumberTableData);
 
 	tableBody.appendChild(tableRow);
-
 	table.appendChild(tableBody);
+
+    nameInputElement.value = '';
+	phoneInputElement.value = '';
+	errorOutputParagraph.innerHTML = '';
 }
 
 function createTableHeader() {
