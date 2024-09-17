@@ -31,7 +31,7 @@ body {
     margin-top: 20px;
 }
 
-#add-btn {
+.btn {
     background-color: royalblue;
     border: none;
     padding: 10px 40px;
@@ -45,4 +45,7 @@ body {
     padding: 30px;
     margin-top: 50px;
     border-radius: 10px;
+}
+i:hover {
+    cursor: pointer;
 }

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Book</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="container">
@@ -21,12 +24,84 @@
                 </div>
             </div>
             <div class="add">
-                <button id="add-btn">Add contact</button>
+                <button class="btn add-contact-btn">Add contact</button>
             </div>
         </div>
         <p id="error-output"></p>
         <div class="table">
-            <table border="1" id="phone-book-table"></table>
+            <table border="1" id="phone-book-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>+447519654321</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Jane Doe</td>
+                        <td>+12021230987</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Michael Johnson</td>
+                        <td>+61412345678</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Emily Davis</td>
+                        <td>+64271234567</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>David Brown</td>
+                        <td>+447456765432</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Sarah Wilson</td>
+                        <td>+14169876543</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>James Miller</td>
+                        <td>+61487654321</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Jessica Taylor</td>
+                        <td>+16042345678</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Robert Anderson</td>
+                        <td>+6421987654</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <td>Linda Martinez</td>
+                        <td>+13127654321</td>
+                        <td><i class="fa-solid fa-pen-to-square"></i></td>
+                        <td><i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 <script src="app.js"></script>
