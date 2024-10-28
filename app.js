@@ -22,7 +22,11 @@ addOrEditContactButton.addEventListener('click', addOrEditContact);
 
 phoneInputElement.addEventListener('keydown', function(e) {
 	if (e.key === 'Enter') {
-		addNewContact();
+		if (addOrEditContactButton.classList.contains('add-contact-btn')) {
+            addNewContact();
+        } else if (addOrEditContactButton.classList.contains('edit-contact-btn')) {
+            editContact();
+        }
 	}
 });
 
@@ -132,10 +136,16 @@ function handleTableActions(e) {
     }
 }
 
-
 function editContact() {
 	const name = nameInputElement.value;
 	const phoneNumber = phoneInputElement.value;
+
+	if (name.length < 3 || phoneNumber.length < 3) {
+		errorOutputParagraph.innerHTML =
+			'The name and phone number must contain at least 3 characters';
+		errorOutputParagraph.style.color = 'red';
+		return;
+	}
 
 	tableRowToBeEdited.querySelector('td:nth-child(1)').innerHTML = name;
 
