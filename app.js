@@ -18,25 +18,25 @@ const errorOutputParagraph = document.querySelector('#error-output');
 
 let tableRowToBeEdited = null;
 
-addOrEditContactButton.addEventListener('click', addOrEditContact);
+addOrEditContactButton.addEventListener('click', () => {
+    if (addOrEditContactButton.classList.contains('add-contact-btn')) {
+        addNewContact();
+    } else if (addOrEditContactButton.classList.contains('edit-contact-btn')) {
+        editContact();
+    }
+    updateTableCorners();
+});
 
 phoneInputElement.addEventListener('keydown', function(e) {
-	if (e.key === 'Enter') {
-		if (addOrEditContactButton.classList.contains('add-contact-btn')) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        if (addOrEditContactButton.classList.contains('add-contact-btn')) {
             addNewContact();
         } else if (addOrEditContactButton.classList.contains('edit-contact-btn')) {
             editContact();
         }
-	}
+    }
 });
-
-function addOrEditContact(e) {
-	if (e.target.classList.contains('add-contact-btn')) {
-		addNewContact();
-	} else if (e.target.classList.contains('edit-contact-btn')) {
-		editContact();
-	}
-}
 
 function isPhoneNumberUnique(phoneNumber, ignoreIndex = -1) {
     return !phoneNumberDetails.some((contact, index) =>
@@ -61,10 +61,10 @@ function addNewContact() {
     return;
 	}
 
-	if (phoneNumberDetails.length === 0) {
-		const thead = createTableHeader();
-		table.appendChild(thead);
-	}
+	if (!table.querySelector('thead')) {
+        const thead = createTableHeader();
+        table.appendChild(thead);
+    }
 
 	phoneNumberDetails.push({
 		name: name,
@@ -94,9 +94,9 @@ function addNewContact() {
 	tableRow.appendChild(deleteButtonElement);
 
 	tableBody.appendChild(tableRow);
-
 	table.appendChild(tableBody);
 
+	updateTableCorners();
     clearInputElements();
 }
 
@@ -126,7 +126,17 @@ table.addEventListener('click', handleTableActions);
 
 function handleTableActions(e) {
     if (e.target.classList.contains('fa-trash')) {
-        e.target.parentElement.parentElement.remove();
+        const row = e.target.parentElement.parentElement;
+        const name = row.querySelector('td:nth-child(1)').innerHTML;
+        const phoneNumber = row.querySelector('td:nth-child(2)').innerHTML;
+
+        const contactIndex = phoneNumberDetails.findIndex(contact => contact.name === name && contact.phoneNumber === phoneNumber);
+        if (contactIndex !== -1) {
+            phoneNumberDetails.splice(contactIndex, 1);
+        }
+
+        row.remove();
+
         const remainingRows = table.querySelectorAll('tbody tr').length;
         if (remainingRows === 0) {
             const thead = table.querySelector('thead');
@@ -134,6 +144,7 @@ function handleTableActions(e) {
                 thead.remove();
             }
         }
+		updateTableCorners();
     } else if (e.target.classList.contains('fa-pen-to-square')) {
         tableRowToBeEdited = e.target.parentElement.parentElement;
         const name = tableRowToBeEdited.querySelector('td:nth-child(1)').innerHTML;
@@ -179,6 +190,28 @@ function editContact() {
 	addOrEditContactButton.classList.add('add-contact-btn');
 
 	clearInputElements();
+}
+
+function updateTableCorners() {
+    const rows = table.querySelectorAll('tbody tr');
+    
+    if (rows.length > 0) {
+        rows.forEach(row => {
+            row.querySelectorAll('td').forEach(cell => {
+                cell.style.borderRadius = '0';
+            });
+        });
+
+        const lastRow = rows[rows.length - 1];
+        lastRow.querySelector('td:first-child').style.borderBottomLeftRadius = '10px';
+        lastRow.querySelector('td:last-child').style.borderBottomRightRadius = '10px';
+    }
+
+    const firstRow = table.querySelector('thead tr');
+    if (firstRow) {
+        firstRow.querySelector('th:first-child').style.borderTopLeftRadius = '10px';
+        firstRow.querySelector('th:last-child').style.borderTopRightRadius = '10px';
+    }
 }
 
 function clearInputElements() {

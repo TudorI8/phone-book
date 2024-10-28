@@ -39,6 +39,10 @@ body {
     border-radius: 10px;
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 .table {
     background-color: gold;
     margin: 0 100px;
@@ -48,4 +52,50 @@ body {
 }
 i:hover {
     cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+#phone-book-table th:first-child {
+    border-top-left-radius: 10px;
+}
+
+#phone-book-table th:last-child {
+    border-top-right-radius: 10px;
+}
+
+#phone-book-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+#phone-book-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+table th,
+table td {
+    border: 1px solid #333;
+    padding: 5px;
+}
+
+table th {
+    background-color: #ffdb4d;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #ffdb4d;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: gold;
+}
+
+table tbody tr:hover {
+    background-color: #ffeca3;
 }
