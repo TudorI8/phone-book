@@ -38,15 +38,27 @@ function addOrEditContact(e) {
 	}
 }
 
+function isPhoneNumberUnique(phoneNumber, ignoreIndex = -1) {
+    return !phoneNumberDetails.some((contact, index) =>
+        contact.phoneNumber === phoneNumber && index !== ignoreIndex
+    );
+}
+
 function addNewContact() {
-	const name = nameInputElement.value;
-	const phoneNumber = phoneInputElement.value;
+	const name = nameInputElement.value.trim();
+	const phoneNumber = phoneInputElement.value.trim();
 
     if (name.length < 3 || phoneNumber.length < 3) {
 		errorOutputParagraph.innerHTML =
 			'The name and phone number must contain at least 3 characters';
 		errorOutputParagraph.style.color = 'red';
 		return;
+	}
+
+	if (!isPhoneNumberUnique(phoneNumber)) {
+    errorOutputParagraph.innerHTML = 'Phone number already exists for another contact';
+    errorOutputParagraph.style.color = 'red';
+    return;
 	}
 
 	if (phoneNumberDetails.length === 0) {
@@ -147,9 +159,20 @@ function editContact() {
 		return;
 	}
 
+	const originalPhoneNumber = tableRowToBeEdited.querySelector('td:nth-child(2)').innerHTML;
+
+	if (phoneNumber !== originalPhoneNumber && !isPhoneNumberUnique(phoneNumber, phoneNumberDetails.indexOf({ phoneNumber: originalPhoneNumber }))) {
+		errorOutputParagraph.innerHTML = 'Phone number already exists for another contact';
+		errorOutputParagraph.style.color = 'red';
+		return;
+	}
+
 	tableRowToBeEdited.querySelector('td:nth-child(1)').innerHTML = name;
 
 	tableRowToBeEdited.querySelector('td:nth-child(2)').innerHTML = phoneNumber;
+
+	const editIndex = Array.from(table.querySelectorAll('tbody tr')).indexOf(tableRowToBeEdited);
+	phoneNumberDetails[editIndex] = { name: name, phoneNumber: phoneNumber };
 
 	addOrEditContactButton.innerHTML = 'Add Contact';
 	addOrEditContactButton.classList.remove('edit-contact-btn');
