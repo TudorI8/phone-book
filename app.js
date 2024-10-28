@@ -1,8 +1,19 @@
 const nameInputElement = document.querySelector('#name');
 const phoneInputElement = document.querySelector('#phone');
 const addOrEditContactButton = document.querySelector('.add-contact-btn');
-const table = document.querySelector('#phone-book-table');
+
 const phoneNumberDetails = [];
+
+const table = document.querySelector('#phone-book-table');
+const rows = table.querySelectorAll('tr');
+
+for (let i = 1; i <= rows.length - 1; i++) {
+	phoneNumberDetails.push({
+		name: rows[i].querySelector('td:nth-child(1)').innerHTML,
+		phoneNumber: rows[i].querySelector('td:nth-child(2)').innerHTML,
+	});
+}
+
 const errorOutputParagraph = document.querySelector('#error-output');
 
 let tableRowToBeEdited = null;
@@ -98,22 +109,29 @@ function createTableHeader() {
 table.addEventListener('click', handleTableActions);
 
 function handleTableActions(e) {
-	if (e.target.classList.contains('fa-trash') === true) {
-		e.target.parentElement.parentElement.remove();
-	} else if (e.target.classList.contains('fa-pen-to-square')) {
-		tableRowToBeEdited = e.target.parentElement.parentElement;
-		const name = tableRowToBeEdited.querySelector('td:nth-child(1)').innerHTML;
-		const phoneNumber =
-			tableRowToBeEdited.querySelector('td:nth-child(2)').innerHTML;
+    if (e.target.classList.contains('fa-trash')) {
+        e.target.parentElement.parentElement.remove();
+        const remainingRows = table.querySelectorAll('tbody tr').length;
+        if (remainingRows === 0) {
+            const thead = table.querySelector('thead');
+            if (thead) {
+                thead.remove();
+            }
+        }
+    } else if (e.target.classList.contains('fa-pen-to-square')) {
+        tableRowToBeEdited = e.target.parentElement.parentElement;
+        const name = tableRowToBeEdited.querySelector('td:nth-child(1)').innerHTML;
+        const phoneNumber = tableRowToBeEdited.querySelector('td:nth-child(2)').innerHTML;
 
-		nameInputElement.value = name;
-		phoneInputElement.value = phoneNumber;
+        nameInputElement.value = name;
+        phoneInputElement.value = phoneNumber;
 
-		addOrEditContactButton.innerHTML = 'Edit contact';
-		addOrEditContactButton.classList.remove('add-contact-btn');
-		addOrEditContactButton.classList.add('edit-contact-btn');
-	}
+        addOrEditContactButton.innerHTML = 'Edit contact';
+        addOrEditContactButton.classList.remove('add-contact-btn');
+        addOrEditContactButton.classList.add('edit-contact-btn');
+    }
 }
+
 
 function editContact() {
 	const name = nameInputElement.value;
